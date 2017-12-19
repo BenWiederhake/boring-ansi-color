@@ -2,5 +2,10 @@
 name = "boring-ansi-color"
 version = "0.1.0"
 authors = ["Ben Wiederhake <BenWiederhake.GitHub@gmx.de>"]
+description = "The most boring ANSI coloror"
+repository = "https://github.com/BenWiederhake/boring-ansi-color"
+readme = "README.md"
+license = "MIT"
 
 [dependencies]
+# None.  It's dead simple.
