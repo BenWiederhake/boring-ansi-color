@@ -53,6 +53,8 @@ impl Color {
 
 pub enum Coloring {
     Reset,
+    Fg(Color),
+    Bg(Color),
     Of(Color, Color),
 }
 
@@ -60,6 +62,8 @@ impl fmt::Display for Coloring {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             &Coloring::Reset => write!(f, "\x1b[0m"),
+            &Coloring::Fg(ref fg) => write!(f, "\x1b[3{}m", fg.to_digit()),
+            &Coloring::Bg(ref bg) => write!(f, "\x1b[4{}m", bg.to_digit()),
             &Coloring::Of(ref fg, ref bg) => write!(f, "\x1b[3{};4{}m", fg.to_digit(), bg.to_digit()),
         }
     }
