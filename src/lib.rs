@@ -25,6 +25,7 @@ use std::fmt;
 */
 
 
+#[derive(PartialEq, Eq, Clone, Copy, Debug)]
 pub enum Color {
     Black,
     Red,
@@ -49,22 +50,30 @@ impl Color {
             &Color:: White => 7,
         }
     }
+
+    fn is_black(&self) -> bool {
+        match self {
+            &Color::Black => true,
+            _ => false,
+        }
+    }
 }
 
+#[derive(PartialEq, Eq, Clone, Debug)]
 pub enum Coloring {
     Reset,
     Fg(Color),
     Bg(Color),
-    Of(Color, Color),
+    On(bool, Color, bool, Color),
 }
 
 impl fmt::Display for Coloring {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
             &Coloring::Reset => write!(f, "\x1b[0m"),
-            &Coloring::Fg(ref fg) => write!(f, "\x1b[3{}m", fg.to_digit()),
+            &Coloring::Fg(ref fg) => write!(f, "\x1b[{}3{}m", if fg.is_black() {""} else {"01;"}, fg.to_digit()),
             &Coloring::Bg(ref bg) => write!(f, "\x1b[4{}m", bg.to_digit()),
-            &Coloring::Of(ref fg, ref bg) => write!(f, "\x1b[3{};4{}m", fg.to_digit(), bg.to_digit()),
+            &Coloring::On(fg_bright, ref fg, bg_bright, ref bg) => write!(f, "\x1b[{}{};{}{}m", if fg_bright {"9"} else {"3"}, fg.to_digit(), if bg_bright {"10"} else {"4"}, bg.to_digit()),
         }
     }
 }
