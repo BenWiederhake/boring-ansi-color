@@ -41,13 +41,13 @@ impl Color {
     fn to_digit(&self) -> u8 {
         match self {
             &Color::Black => 0,
-            &Color::Red => 9,
-            &Color::Green => 10,
-            &Color::Yellow => 11,
-            &Color::Blue => 12,
-            &Color::Magenta => 13,
-            &Color::Cyan => 14,
-            &Color:: White => 15,
+            &Color::Red => 1,
+            &Color::Green => 2,
+            &Color::Yellow => 3,
+            &Color::Blue => 4,
+            &Color::Magenta => 5,
+            &Color::Cyan => 6,
+            &Color:: White => 7,
         }
     }
 
@@ -73,7 +73,7 @@ impl fmt::Display for Coloring {
             &Coloring::Reset => write!(f, "\x1b[0m"),
             &Coloring::Fg(ref fg) => write!(f, "\x1b[{}3{}m", if fg.is_black() {""} else {"01;"}, fg.to_digit()),
             &Coloring::Bg(ref bg) => write!(f, "\x1b[4{}m", bg.to_digit()),
-            &Coloring::On(fg_bright, ref fg, bg_bright, ref bg) => write!(f, "\x1b[38;5;{};48;5;{}m", fg.to_digit(), bg.to_digit()),
+            &Coloring::On(fg_bright, ref fg, bg_bright, ref bg) => write!(f, "\x1b[1m\x1b[{}{}m\x1b[{}{}m", if fg_bright {"9"} else {"3"}, fg.to_digit(), if bg_bright {"10"} else {"4"}, bg.to_digit()),
         }
     }
 }

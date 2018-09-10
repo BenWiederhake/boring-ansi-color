@@ -21,6 +21,7 @@ fn main() {
         ("Cyn+", Color::Cyan, true),
         ("Wht+", Color::White, true),
     ];
+    println!("usual+bold");
     print!("    ");
     for &(ref fg_name, _, _) in &cols {
         print!(" {}", fg_name);

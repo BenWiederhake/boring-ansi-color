@@ -1,3 +1,9 @@
+# ABANDONED
+
+The main problem is that "dark yellow" as background is actually orange.
+This, and the fact that the colors actually aren't that strictly defined,
+prevents the main use case I had in mind.  Oh well.
+
 # boring-ansi-color
 
 > The most boring ANSI coloror.
